@@ -72,7 +72,18 @@ class VSREngine:
         self.step_frames = step_frames
 
         if device is None:
-            self.device = "cuda:0" if torch.cuda.is_available() else "cpu"
+            if torch.cuda.is_available():
+                try:
+                    cap = torch.cuda.get_device_capability(0)
+                    if cap[0] <= 9:
+                        self.device = "cuda:0"
+                    else:
+                        logger.info("GPU compute capability sm_%d%d exceeds PyTorch binary support; falling back to CPU.", cap[0], cap[1])
+                        self.device = "cpu"
+                except Exception:
+                    self.device = "cpu"
+            else:
+                self.device = "cpu"
         else:
             self.device = device
 

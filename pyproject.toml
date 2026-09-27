@@ -25,6 +25,8 @@ dependencies = [
     "pytest-asyncio>=0.23.0",
     "requests>=2.31.0",
     "tqdm>=4.66.0",
+    "onnx>=1.22.0",
+    "onnxruntime>=1.30.0",
 ]
 
 [build-system]
