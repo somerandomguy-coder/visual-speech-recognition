@@ -29,7 +29,7 @@
 **Interfaces:**
 - Produces: `uv` virtual environment with PyTorch CUDA, Auto-AVSR dependencies, and downloaded `LRS3_V_WER19.1` PyTorch checkpoint in `models/`.
 
-- [ ] **Step 1: Write environment and dependency verification test**
+- [x] **Step 1: Write environment and dependency verification test**
 
 ```python
 # tests/test_environment.py
@@ -49,7 +49,7 @@ def test_dependencies_importable():
     assert True
 ```
 
-- [ ] **Step 2: Create `pyproject.toml` and configure `uv` virtual environment**
+- [x] **Step 2: Create `pyproject.toml` and configure `uv` virtual environment**
 
 ```toml
 [project]
@@ -79,16 +79,16 @@ dependencies = [
 ]
 ```
 
-- [ ] **Step 3: Create model download script `scripts/download_models.py`**
+- [x] **Step 3: Create model download script `scripts/download_models.py`**
 
 Script downloads the `LRS3_V_WER19.1` visual checkpoint, language dictionary / SentencePiece subword model, and default Auto-AVSR configs from Hugging Face Hub (`mpc001` / `Amanvir`) into `models/`.
 
-- [ ] **Step 4: Execute model download and run environment test**
+- [x] **Step 4: Execute model download and run environment test**
 
 Run: `uv run pytest tests/test_environment.py -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add pyproject.toml scripts/download_models.py tests/test_environment.py backend/configs/
@@ -113,7 +113,7 @@ git commit -m "chore: setup uv environment, dependencies, and model download scr
       def reset(self) -> None: ...
   ```
 
-- [ ] **Step 1: Write failing test for 25.0 FPS resampling from 30 FPS input**
+- [x] **Step 1: Write failing test for 25.0 FPS resampling from 30 FPS input**
 
 ```python
 # tests/test_resampler.py
@@ -133,21 +133,21 @@ def test_resample_30fps_to_25fps():
     assert len(output_frames) == 25
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `uv run pytest tests/test_resampler.py -v`  
 Expected: FAIL (module not found)
 
-- [ ] **Step 3: Implement `backend/resampler.py`**
+- [x] **Step 3: Implement `backend/resampler.py`**
 
 Implements monotonic 40ms timeline grid tracking with nearest-timestamp frame selection and buffer management.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `uv run pytest tests/test_resampler.py -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add backend/resampler.py tests/test_resampler.py
@@ -173,7 +173,7 @@ git commit -m "feat(vision): implement strict 25.0 FPS timestamp-based temporal 
       def is_face_detected(self) -> bool: ...
   ```
 
-- [ ] **Step 1: Write failing test for face detection and affine mouth normalization**
+- [x] **Step 1: Write failing test for face detection and affine mouth normalization**
 
 ```python
 # tests/test_face_tracker.py
@@ -191,12 +191,12 @@ def test_face_tracker_output_shape():
     assert not tracker.is_face_detected()
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `uv run pytest tests/test_face_tracker.py -v`  
 Expected: FAIL
 
-- [ ] **Step 3: Implement `backend/face_tracker.py`**
+- [x] **Step 3: Implement `backend/face_tracker.py`**
 
 - Uses MediaPipe FaceMesh to extract 468 landmarks.
 - Extracts key mouth anchors (lip corners 61 & 291, top lip 0, bottom lip 17).
@@ -204,12 +204,12 @@ Expected: FAIL
 - Warps and crops to 96×96 grayscale image with histogram equalization/normalization.
 - Smooths landmarks with Exponential Moving Average (`ema_alpha = 0.7`).
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `uv run pytest tests/test_face_tracker.py -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add backend/face_tracker.py tests/test_face_tracker.py
@@ -235,7 +235,7 @@ git commit -m "feat(vision): implement FaceMesh tracking and canonical 96x96 aff
       def reset(self) -> None: ...
   ```
 
-- [ ] **Step 1: Write failing test for V-VAD speech detection and silence closure**
+- [x] **Step 1: Write failing test for V-VAD speech detection and silence closure**
 
 ```python
 # tests/test_vad.py
@@ -253,21 +253,21 @@ def test_vad_silence_detection():
     assert vad.is_phrase_complete()
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `uv run pytest tests/test_vad.py -v`  
 Expected: FAIL
 
-- [ ] **Step 3: Implement `backend/vad.py`**
+- [x] **Step 3: Implement `backend/vad.py`**
 
 Calculates Lip Aspect Ratio (LAR) and inter-frame absolute pixel delta, detecting onset and offset of mouth movements with debouncing.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `uv run pytest tests/test_vad.py -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add backend/vad.py tests/test_vad.py
@@ -292,7 +292,7 @@ git commit -m "feat(vad): implement Visual Voice Activity Detection with LAR and
       # Returns {"raw_token": str, "committed_text": str, "tentative_text": str}
   ```
 
-- [ ] **Step 1: Write failing test for sliding-window token merger**
+- [x] **Step 1: Write failing test for sliding-window token merger**
 
 ```python
 # tests/test_vsr_engine.py
@@ -307,24 +307,24 @@ def test_merge_sliding_tokens():
     assert "HELLO HOW" in committed
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `uv run pytest tests/test_vsr_engine.py -v`  
 Expected: FAIL
 
-- [ ] **Step 3: Implement `backend/vsr_engine.py`**
+- [x] **Step 3: Implement `backend/vsr_engine.py`**
 
 - Loads Auto-AVSR PyTorch Conformer backbone (`LRS3_V_WER19.1`) on CUDA.
 - Maintains rolling buffer of 37 frames (1.5s) stepping by 12 frames (0.5s).
 - Runs CTC decoding to produce visual subwords.
 - Implements `merge_sliding_tokens` prefix alignment to stitch continuous subtitles without duplicates.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `uv run pytest tests/test_vsr_engine.py -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add backend/vsr_engine.py tests/test_vsr_engine.py
@@ -348,7 +348,7 @@ git commit -m "feat(vsr): implement Auto-AVSR inference engine with 1.5s sliding
       async def is_available(self) -> bool: ...
   ```
 
-- [ ] **Step 1: Write test with mocked Ollama API response for homophene correction**
+- [x] **Step 1: Write test with mocked Ollama API response for homophene correction**
 
 ```python
 # tests/test_llm_resolver.py
@@ -367,21 +367,21 @@ async def test_homophene_resolution():
         assert result == "I want to go to the park."
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `uv run pytest tests/test_llm_resolver.py -v`  
 Expected: FAIL
 
-- [ ] **Step 3: Implement `backend/llm_resolver.py`**
+- [x] **Step 3: Implement `backend/llm_resolver.py`**
 
 Configures `httpx` async client to communicate with Ollama, using few-shot prompt instructions tailored for homophene correction, syntax repair, and anti-hallucination guardrails.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `uv run pytest tests/test_llm_resolver.py -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add backend/llm_resolver.py tests/test_llm_resolver.py
@@ -402,7 +402,7 @@ git commit -m "feat(llm): implement async Ollama Qwen homophene resolver"
   - `POST /api/recognize-clip` -> accepts multipart video (`.webm`, `.mp4`), returns `{"raw_text": str, "corrected_text": str, "latency_ms": float}`
   - `WebSocket /ws/stream` -> bidirectional full-duplex binary frame streaming and real-time subtitle delivery.
 
-- [ ] **Step 1: Write API tests using FastAPI TestClient**
+- [x] **Step 1: Write API tests using FastAPI TestClient**
 
 ```python
 # tests/test_api.py
@@ -418,24 +418,24 @@ def test_health_endpoint():
     assert "status" in data
 ```
 
-- [ ] **Step 2: Run test to verify it fails**
+- [x] **Step 2: Run test to verify it fails**
 
 Run: `uv run pytest tests/test_api.py -v`  
 Expected: FAIL
 
-- [ ] **Step 3: Implement `backend/app.py`**
+- [x] **Step 3: Implement `backend/app.py`**
 
 - Assembles `TemporalResampler`, `FaceTracker`, `VisualVAD`, `VSREngine`, and `LLMResolver`.
 - Adds CORS middleware for local network access (`0.0.0.0:8000`).
 - Implements WebSocket handler decoding binary frames, feeding sliding window, and streaming back dual-tier subtitle JSON.
 - Serves static frontend files from `frontend_web/`.
 
-- [ ] **Step 4: Run test to verify it passes**
+- [x] **Step 4: Run test to verify it passes**
 
 Run: `uv run pytest tests/test_api.py -v`  
 Expected: PASS
 
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add backend/app.py tests/test_api.py
@@ -463,11 +463,11 @@ git commit -m "feat(api): implement FastAPI server with full-duplex WebSocket st
   - Smooth animated typing of refined English sentences.
 - Live latency and FPS diagnostics overlay.
 
-- [ ] **Step 1: Build semantic HTML5 structure `frontend_web/index.html`**
-- [ ] **Step 2: Build high-contrast, dark-mode styling `frontend_web/style.css`**
-- [ ] **Step 3: Build camera capture & WebSocket streaming engine `frontend_web/app.js`**
-- [ ] **Step 4: Verify UI locally in browser via Antigravity browser subagent**
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 1: Build semantic HTML5 structure `frontend_web/index.html`**
+- [x] **Step 2: Build high-contrast, dark-mode styling `frontend_web/style.css`**
+- [x] **Step 3: Build camera capture & WebSocket streaming engine `frontend_web/app.js`**
+- [x] **Step 4: Verify UI locally in browser via Antigravity browser subagent**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add frontend_web/
@@ -488,13 +488,13 @@ git commit -m "feat(ui): create mobile-first responsive web client with camera H
 - Verify output text accuracy and total latency under 500ms on RTX 5060 Ti.
 - Push all changes to remote GitHub repository.
 
-- [ ] **Step 1: Write end-to-end integration test**
-- [ ] **Step 2: Run end-to-end test and benchmark**
+- [x] **Step 1: Write end-to-end integration test**
+- [x] **Step 2: Run end-to-end test and benchmark**
 
 Run: `uv run pytest tests/test_e2e_pipeline.py -v`  
 Expected: PASS
 
-- [ ] **Step 3: Commit and Push Milestone**
+- [x] **Step 3: Commit and Push Milestone**
 
 ```bash
 git add tests/test_e2e_pipeline.py scripts/run_benchmark.py
