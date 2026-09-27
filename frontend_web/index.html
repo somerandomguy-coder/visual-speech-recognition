@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Visual Speech Recognition HUD</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Status Diagnostics Header -->
+        <header class="hud-header">
+            <div class="brand">
+                <span class="pulse-indicator" id="connectionIndicator"></span>
+                <span class="brand-title">SILENT VSR</span>
+            </div>
+            <div class="diagnostics">
+                <span class="badge" id="fpsBadge">-- FPS</span>
+                <span class="badge" id="latencyBadge">-- ms</span>
+                <span class="badge" id="poseBadge">Y:0° P:0°</span>
+            </div>
+            <button class="icon-button" id="cameraFlipBtn" title="Switch Camera" aria-label="Switch Camera">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 10c0-4.418-3.582-8-8-8s-8 3.582-8 8v2H2l3.5 3.5L9 12H7v-2c0-2.761 2.239-5 5-5s5 2.239 5 5v2h-2l3.5 3.5 3.5-3.5h-2v-2z"/>
+                </svg>
+            </button>
+        </header>
+
+        <!-- Camera Viewfinder with Overlay Reticle -->
+        <main class="viewfinder-wrapper">
+            <video id="videoElement" autoplay playsinline muted></video>
+            <canvas id="captureCanvas" class="hidden-canvas"></canvas>
+
+            <!-- Face and Mouth Framing Guide Reticle -->
+            <div class="face-guide-reticle" id="faceReticle">
+                <div class="reticle-oval"></div>
+                <div class="mouth-crosshair"></div>
+                <div class="guide-label" id="reticleLabel">Align face in frame</div>
+            </div>
+
+            <!-- Subtitle Display Floating Container -->
+            <div class="subtitles-container">
+                <div class="raw-tokens-tier" id="rawTokensBox">
+                    <span class="tier-label">CTC RAW:</span>
+                    <span id="rawTextContent">...</span>
+                </div>
+                <div class="refined-sentence-tier" id="refinedSentenceBox">
+                    <p id="refinedTextContent">Waiting for speech...</p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Bottom Mobile Control Bar -->
+        <footer class="hud-controls">
+            <div class="mode-toggles">
+                <button class="mode-chip active" id="liveModeBtn">Live Stream</button>
+                <button class="mode-chip" id="pushToTalkModeBtn">Push to Talk</button>
+            </div>
+
+            <div class="action-dock">
+                <button class="action-btn ptt-btn" id="pttButton">
+                    <span class="btn-ripple"></span>
+                    <span class="btn-text">HOLD TO TRANSCRIBE</span>
+                </button>
+            </div>
+        </footer>
+    </div>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

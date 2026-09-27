@@ -1,0 +1,302 @@
+:root {
+    --bg-primary: #0a0c10;
+    --bg-glass: rgba(18, 22, 31, 0.75);
+    --border-glass: rgba(255, 255, 255, 0.12);
+    --text-primary: #f0f3f8;
+    --text-muted: #8b949e;
+    --accent-blue: #38bdf8;
+    --accent-emerald: #10b981;
+    --accent-amber: #f59e0b;
+    --accent-rose: #f43f5e;
+    --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: var(--font-sans);
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+}
+
+/* Header */
+.hud-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 16px;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.85) 0%, transparent 100%);
+    backdrop-filter: blur(8px);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand-title {
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--text-primary);
+}
+
+.pulse-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-rose);
+    box-shadow: 0 0 8px var(--accent-rose);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.pulse-indicator.connected {
+    background-color: var(--accent-emerald);
+    box-shadow: 0 0 10px var(--accent-emerald);
+}
+
+.diagnostics {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    font-weight: 500;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    color: var(--text-muted);
+}
+
+.icon-button {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    color: var(--text-primary);
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.icon-button:active {
+    transform: scale(0.95);
+}
+
+/* Viewfinder */
+.viewfinder-wrapper {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: #000;
+}
+
+#videoElement {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.hidden-canvas {
+    display: none;
+}
+
+/* Face Reticle */
+.face-guide-reticle {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 240px;
+    height: 320px;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.3s;
+}
+
+.reticle-oval {
+    width: 100%;
+    height: 100%;
+    border: 2px dashed rgba(255, 255, 255, 0.35);
+    border-radius: 50% / 40%;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.face-guide-reticle.detected .reticle-oval {
+    border-color: var(--accent-emerald);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+}
+
+.mouth-crosshair {
+    position: absolute;
+    bottom: 22%;
+    width: 70px;
+    height: 30px;
+    border: 1.5px solid rgba(56, 189, 248, 0.4);
+    border-radius: 8px;
+}
+
+.guide-label {
+    position: absolute;
+    bottom: -28px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    background: rgba(0, 0, 0, 0.6);
+    padding: 3px 10px;
+    border-radius: 12px;
+}
+
+/* Subtitles Container */
+.subtitles-container {
+    position: absolute;
+    bottom: 120px;
+    left: 16px;
+    right: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    z-index: 10;
+}
+
+.raw-tokens-tier {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--accent-amber);
+    background: rgba(0, 0, 0, 0.65);
+    backdrop-filter: blur(8px);
+    padding: 6px 12px;
+    border-radius: 8px;
+    border-left: 3px solid var(--accent-amber);
+    max-height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tier-label {
+    font-size: 0.65rem;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+
+.refined-sentence-tier {
+    background: rgba(10, 14, 22, 0.88);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 14px 18px;
+    min-height: 58px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+}
+
+.refined-sentence-tier p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+/* Bottom Controls */
+.hud-controls {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 16px;
+    background: linear-gradient(0deg, rgba(0, 0, 0, 0.95) 0%, transparent 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 20;
+}
+
+.mode-toggles {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.mode-chip {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    color: var(--text-muted);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.mode-chip.active {
+    background: var(--accent-blue);
+    color: #000;
+    border-color: var(--accent-blue);
+}
+
+.action-dock {
+    display: flex;
+    justify-content: center;
+}
+
+.ptt-btn {
+    width: 100%;
+    max-width: 320px;
+    height: 52px;
+    border-radius: 26px;
+    background: linear-gradient(135deg, #2563eb, #3b82f6);
+    border: none;
+    color: #fff;
+    font-size: 0.9rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+    transition: transform 0.1s, box-shadow 0.2s, background 0.2s;
+}
+
+.ptt-btn:active, .ptt-btn.recording {
+    transform: scale(0.97);
+    background: linear-gradient(135deg, #e11d48, #f43f5e);
+    box-shadow: 0 0 25px rgba(244, 63, 94, 0.6);
+}
