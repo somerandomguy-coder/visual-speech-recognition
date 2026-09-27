@@ -68,11 +68,11 @@ visual-speech-recognition/
 **Interfaces:**
 - Produces: `models/qwen2.5-0.5b-instruct-q4_k_m.gguf` (491 MB) verified by file size and GGUF header magic.
 
-- [ ] **Step 1: Write verification test for SLM download**
-- [ ] **Step 2: Run test to verify it fails**
-- [ ] **Step 3: Implement `scripts/download_slm.py` with progress tracking**
-- [ ] **Step 4: Execute download and verify test passes**
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 1: Write verification test for SLM download**
+- [x] **Step 2: Run test to verify it fails**
+- [x] **Step 3: Implement `scripts/download_slm.py` with progress tracking**
+- [x] **Step 4: Execute download and verify test passes**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add scripts/download_slm.py tests/test_download_slm.py
@@ -93,11 +93,11 @@ git commit -m "feat(models): add automated downloader and verification for Qwen2
   `Mouth Frames -> StandaloneONNXVSR -> CTC Greedy Decode -> Offline GGUF SLM`.
 - Measures total latency of ONNX (~88ms) + SLM (~150-250ms) = Sub-350ms offline response.
 
-- [ ] **Step 1: Write integration test for pure offline VSR + SLM**
-- [ ] **Step 2: Run test to verify it fails**
-- [ ] **Step 3: Implement `backend/offline_slm.py`**
-- [ ] **Step 4: Run tests and offline benchmark**
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 1: Write integration test for pure offline VSR + SLM**
+- [x] **Step 2: Run test to verify it fails**
+- [x] **Step 3: Implement `backend/offline_slm.py`**
+- [x] **Step 4: Run tests and offline benchmark**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add backend/offline_slm.py scripts/benchmark_offline_pipeline.py tests/test_offline_pipeline.py
@@ -120,11 +120,11 @@ git commit -m "feat(offline): validate zero-network VSR ONNX and GGUF SLM pipeli
 - Port LAR and motion delta Visual VAD to Dart.
 - Port canonical affine 96×96 mouth normalization to Dart.
 
-- [ ] **Step 1: Write Dart unit tests for resampler and VAD**
-- [ ] **Step 2: Implement `mobile_app/lib/services/temporal_resampler.dart`**
-- [ ] **Step 3: Implement `mobile_app/lib/services/visual_vad.dart`**
-- [ ] **Step 4: Implement `mobile_app/lib/services/affine_mouth_warper.dart`**
-- [ ] **Step 5: Commit cornerstone**
+- [x] **Step 1: Write Dart unit tests for resampler and VAD**
+- [x] **Step 2: Implement `mobile_app/lib/services/temporal_resampler.dart`**
+- [x] **Step 3: Implement `mobile_app/lib/services/visual_vad.dart`**
+- [x] **Step 4: Implement `mobile_app/lib/services/affine_mouth_warper.dart`**
+- [x] **Step 5: Commit cornerstone**
 
 ```bash
 git add mobile_app/lib/services/ mobile_app/test/
@@ -151,10 +151,10 @@ git commit -m "feat(flutter): implement 25 FPS resampler, VAD, and affine warper
   - Loads `qwen2.5-0.5b-instruct-q4_k_m.gguf` via `llama_cpp_dart`.
   - Runs few-shot homophene correction prompt with temperature 0.1.
 
-- [ ] **Step 1: Write Dart unit tests for CTC decoder and token merger**
-- [ ] **Step 2: Implement `mobile_app/lib/services/vsr_onnx_engine.dart`**
-- [ ] **Step 3: Implement `mobile_app/lib/services/offline_slm_resolver.dart`**
-- [ ] **Step 4: Commit cornerstone**
+- [x] **Step 1: Write Dart unit tests for CTC decoder and token merger**
+- [x] **Step 2: Implement `mobile_app/lib/services/vsr_onnx_engine.dart`**
+- [x] **Step 3: Implement `mobile_app/lib/services/offline_slm_resolver.dart`**
+- [x] **Step 4: Commit cornerstone**
 
 ```bash
 git add mobile_app/lib/services/vsr_onnx_engine.dart mobile_app/lib/services/offline_slm_resolver.dart
@@ -180,11 +180,11 @@ git commit -m "feat(flutter): implement on-device ONNX VSR and llama.cpp SLM ser
   - Instant raw visual words (<100ms).
   - Smooth typing animation of refined English sentences.
 
-- [ ] **Step 1: Implement data models and subtitle event streams**
-- [ ] **Step 2: Implement `viewfinder_hud.dart` with custom painter reticle**
-- [ ] **Step 3: Implement `subtitle_overlay.dart`**
-- [ ] **Step 4: Wire all components into `main.dart`**
-- [ ] **Step 5: Commit and push milestone**
+- [x] **Step 1: Implement data models and subtitle event streams**
+- [x] **Step 2: Implement `viewfinder_hud.dart` with custom painter reticle**
+- [x] **Step 3: Implement `subtitle_overlay.dart`**
+- [x] **Step 4: Wire all components into `main.dart`**
+- [x] **Step 5: Commit and push milestone**
 
 ```bash
 git add mobile_app/
