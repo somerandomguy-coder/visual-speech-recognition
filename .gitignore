@@ -225,3 +225,7 @@ models/
 *.pt
 *.onnx
 *.gguf
+
+# Allow Flutter source directory
+!mobile_app/lib/
+!mobile_app/lib/**
